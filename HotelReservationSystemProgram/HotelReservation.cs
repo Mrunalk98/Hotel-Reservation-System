@@ -8,6 +8,7 @@ namespace HotelReservationSystemProgram
     public class HotelReservation
     {
         Dictionary<string, Hotel> hotelRecords = new Dictionary<string, Hotel>();
+        List<Hotel> MinRateHotels = new List<Hotel>();
         public void AddHotel(string hotelName, double weekdayRate, double weekendRate, string customerType)
         {
             Hotel hotel = new Hotel();
@@ -32,19 +33,33 @@ namespace HotelReservationSystemProgram
             double minRate = 0;
             double hotelRate;
             Hotel MinRateHotel = null;
+            int weekdayCount = 0;
+            int weekendCount = 0;
 
             double numberOfDays = (endDate - startDate).TotalDays + 1;
-            foreach(Hotel hotel in hotelRecords.Values)
+            for (int i=0; i<numberOfDays; i++)
             {
-                hotelRate = numberOfDays * hotel.WeekdayRate;
-                if (hotelRecords.Values.ToList().IndexOf(hotel) == 0 || hotelRate < minRate)
+                var nextDate = startDate.AddDays(i);
+                if (nextDate.DayOfWeek == DayOfWeek.Saturday || nextDate.DayOfWeek == DayOfWeek.Sunday)
+                    weekendCount++;
+                else
+                    weekdayCount++;
+            }
+            foreach (Hotel hotel in hotelRecords.Values)
+            {
+                hotelRate = (weekdayCount * hotel.WeekdayRate) + (weekendCount * hotel.WeekendRate);
+                if (hotelRecords.Values.ToList().IndexOf(hotel) == 0 || hotelRate <= minRate)
                 {
                     minRate = hotelRate;
                     MinRateHotel = hotel;
+                    MinRateHotels.Add(MinRateHotel);
                 }
             }
-            Console.Write("Cheapest Hotel : \t");
-            Console.WriteLine("Hotel Name: " + MinRateHotel.HotelName + "\t Total Rate: $" + minRate);
+            Console.WriteLine("Cheapest Hotel :- ");
+            foreach(Hotel minRateHotel in MinRateHotels)
+            {
+                Console.WriteLine("Hotel Name: " + minRateHotel.HotelName + "\t Total Rate: $" + minRate);
+            }
 
         }
 

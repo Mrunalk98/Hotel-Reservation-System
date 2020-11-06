@@ -9,13 +9,14 @@ namespace HotelReservationSystemProgram
     {
         Dictionary<string, Hotel> hotelRecords = new Dictionary<string, Hotel>();
         List<Hotel> MinRateHotels = new List<Hotel>();
-        public void AddHotel(string hotelName, double weekdayRate, double weekendRate, string customerType)
+        public void AddHotel(string hotelName, double weekdayRate, double weekendRate, string customerType, double rating)
         {
             Hotel hotel = new Hotel();
             hotel.HotelName = hotelName;
             hotel.WeekdayRate = weekdayRate;
             hotel.WeekendRate = weekendRate;
             hotel.CustomerType = customerType;
+            hotel.Rating = rating;
             hotelRecords.Add(hotelName, hotel);
             Console.WriteLine("Hotel added successfully");
         }

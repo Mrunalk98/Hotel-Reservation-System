@@ -11,9 +11,9 @@ namespace HotelReservationSystemProgram
         {
             Console.WriteLine("Hotel Reservation System Program!");
             HotelReservation reservation = new HotelReservation();
-            reservation.AddHotel("Lakewood", 110, 90, REGULAR);
-            reservation.AddHotel("Bridgewood", 150, 50, REGULAR);
-            reservation.AddHotel("Ridgewood.", 220, 150, REGULAR);
+            reservation.AddHotel("Lakewood", 110, 90, REGULAR, 3);
+            reservation.AddHotel("Bridgewood", 150, 50, REGULAR, 4);
+            reservation.AddHotel("Ridgewood.", 220, 150, REGULAR, 5);
             reservation.GetCheapestHotel(DateTime.Parse("11Sep2020"), DateTime.Parse("12Sep2020"));
         }
     }

@@ -29,26 +29,31 @@ namespace HotelReservationSystemProgram
             }
         }
 
+        public int[] getDaysCount(DateTime startDate, DateTime endDate)
+        {
+            int[] weekDays = new int[2];
+            double numberOfDays = (endDate - startDate).TotalDays + 1;
+            for (int i = 0; i < numberOfDays; i++)
+            {
+                var nextDate = startDate.AddDays(i);
+                if (nextDate.DayOfWeek == DayOfWeek.Saturday || nextDate.DayOfWeek == DayOfWeek.Sunday)
+                    weekDays[0]++;
+                else
+                    weekDays[1]++;
+            }
+            return weekDays;
+        }
         public void GetCheapestHotel(DateTime startDate, DateTime endDate)
         {
             double minRate = 0;
             double hotelRate;
             Hotel MinRateHotel = null;
-            int weekdayCount = 0;
-            int weekendCount = 0;
 
-            double numberOfDays = (endDate - startDate).TotalDays + 1;
-            for (int i=0; i<numberOfDays; i++)
-            {
-                var nextDate = startDate.AddDays(i);
-                if (nextDate.DayOfWeek == DayOfWeek.Saturday || nextDate.DayOfWeek == DayOfWeek.Sunday)
-                    weekendCount++;
-                else
-                    weekdayCount++;
-            }
+            int[] Days = new int[2];
+            Days = getDaysCount(startDate, endDate);
             foreach (Hotel hotel in hotelRecords.Values)
             {
-                hotelRate = (weekdayCount * hotel.WeekdayRate) + (weekendCount * hotel.WeekendRate);
+                hotelRate = (Days[0] * hotel.WeekendRate) + (Days[1] * hotel.WeekdayRate);
                 if (hotelRecords.Values.ToList().IndexOf(hotel) == 0 || hotelRate <= minRate)
                 {
                     minRate = hotelRate;
@@ -56,9 +61,20 @@ namespace HotelReservationSystemProgram
                     MinRateHotels.Add(MinRateHotel);
                 }
             }
-            Console.WriteLine("Cheapest Hotel :- ");
+            Console.WriteLine("\nCheapest Hotel :- ");
             var ratedHotel = MinRateHotels.Select(x => (x.Rating, x)).Max();
             Console.WriteLine("Hotel Name: " + ratedHotel.x.HotelName + "\t Rating: " + ratedHotel.Rating + "\t Total Rate: $" + minRate);
+        }
+
+        public void GetBestRatedHotel(DateTime startDate, DateTime endDate)
+        {
+            double hotelRate;
+            int[] Days = new int[2];
+            Days = getDaysCount(startDate, endDate);
+            var bestRateHotel = hotelRecords.Values.Select(x => (x.Rating, x)).Max();
+            hotelRate = (Days[0] * bestRateHotel.x.WeekendRate) + (Days[1] * bestRateHotel.x.WeekdayRate);
+            Console.WriteLine("\nBest Rated Hotel :- ");
+            Console.WriteLine("Hotel Name: " + bestRateHotel.x.HotelName + "\t Rating: " + bestRateHotel.Rating + "\t Total Rate: $" + hotelRate);
         }
 
     }

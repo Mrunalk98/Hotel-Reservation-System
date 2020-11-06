@@ -57,11 +57,8 @@ namespace HotelReservationSystemProgram
                 }
             }
             Console.WriteLine("Cheapest Hotel :- ");
-            foreach(Hotel minRateHotel in MinRateHotels)
-            {
-                Console.WriteLine("Hotel Name: " + minRateHotel.HotelName + "\t Total Rate: $" + minRate);
-            }
-
+            var ratedHotel = MinRateHotels.Select(x => (x.Rating, x)).Max();
+            Console.WriteLine("Hotel Name: " + ratedHotel.x.HotelName + "\t Rating: " + ratedHotel.Rating + "\t Total Rate: $" + minRate);
         }
 
     }

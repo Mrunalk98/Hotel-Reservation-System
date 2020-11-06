@@ -14,7 +14,7 @@ namespace HotelReservationSystemProgram
             reservation.AddHotel("Lakewood", 110, 90, REGULAR);
             reservation.AddHotel("Bridgewood", 160, 60, REGULAR);
             reservation.AddHotel("Ridgewood.", 220, 150, REGULAR);
-            reservation.DisplayHotels();
+            reservation.GetCheapestHotel(DateTime.Parse("11Sep2020"), DateTime.Parse("12Sep2020"));
         }
     }
 }

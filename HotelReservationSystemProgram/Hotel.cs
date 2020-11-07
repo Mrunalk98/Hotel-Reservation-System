@@ -6,6 +6,7 @@ namespace HotelReservationSystemProgram
 {
     public class Hotel
     {
+        public int HotelID { get; set; }
         public string HotelName { get; set; }
         public double WeekdayRate { get; set; }
         public double WeekendRate { get; set; }

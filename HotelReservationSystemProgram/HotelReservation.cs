@@ -7,23 +7,24 @@ namespace HotelReservationSystemProgram
 {
     public class HotelReservation
     {
-        Dictionary<string, Hotel> hotelRecords = new Dictionary<string, Hotel>();
+        Dictionary<int, Hotel> hotelRecords = new Dictionary<int, Hotel>();
         List<Hotel> MinRateHotels = new List<Hotel>();
-        public void AddHotel(string hotelName, double weekdayRate, double weekendRate, string customerType, double rating)
+        public void AddHotel(int hotelId, string hotelName, double weekdayRate, double weekendRate, string customerType, double rating)
         {
             Hotel hotel = new Hotel();
+            hotel.HotelID = hotelId;
             hotel.HotelName = hotelName;
             hotel.WeekdayRate = weekdayRate;
             hotel.WeekendRate = weekendRate;
             hotel.CustomerType = customerType;
             hotel.Rating = rating;
-            hotelRecords.Add(hotelName, hotel);
+            hotelRecords.Add(hotelId, hotel);
             Console.WriteLine("Hotel added successfully");
         }
 
         public void DisplayHotels()
         {
-            foreach(KeyValuePair<string, Hotel> hotels in hotelRecords)
+            foreach(KeyValuePair<int, Hotel> hotels in hotelRecords)
             {
                 Console.WriteLine("Key : " + hotels.Key + "     Value : " + hotels.Value.HotelName + ", " + hotels.Value.WeekdayRate + ", " + hotels.Value.WeekendRate + ", " + hotels.Value.CustomerType);
             }

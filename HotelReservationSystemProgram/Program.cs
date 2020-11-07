@@ -20,9 +20,11 @@ namespace HotelReservationSystemProgram
             reservation.AddHotel(6, "Ridgewood", 100, 40, REWARD, 5);
             reservation.DisplayHotels();
 
+            Console.WriteLine();
             var startDate = CheckDateFormat("Check-in Date");
             var endDate = CheckDateFormat("Check-out Date");
-            reservation.GetCheapestBestRatedHotel(REWARD, startDate, endDate);
+            reservation.GetCheapestBestRatedHotel(REGULAR, startDate, endDate);
+            //reservation.GetCheapestBestRatedHotel(REWARD, startDate, endDate);
         }
 
         static DateTime CheckDateFormat(string type)
